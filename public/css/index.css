@@ -1,0 +1,339 @@
+/* ============================================================
+   Mystic Card Night – index.css
+   ============================================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --bg:          #7a0d22;
+  --gold:        #c9a84c;
+  --gold-light:  #e8cc7a;
+  --gold-dark:   #a07830;
+  --btn-pink:    #e87a8a;
+  --text-title:  #d4ae60;
+  --text-sub:    #f0c8c0;
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% 0%,   rgba(200,50,80,0.35) 0%, transparent 65%),
+    radial-gradient(ellipse at 50% 100%, rgba(50,0,10,0.6)    0%, transparent 70%);
+  font-family: 'Lora', Georgia, serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ---------- Top decorative bar ---------- */
+.top-bar {
+  position: relative; z-index: 1;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: .7;
+  margin: 0 40px;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: relative; z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 40px 10px;
+}
+
+/* --- Women Day Badge --- */
+.badge-wrap {
+  flex: 0 0 auto;
+  width: 110px;
+  animation: badgeSpin 30s linear infinite;
+}
+@keyframes badgeSpin { to { transform: rotate(360deg); } }
+
+.badge {
+  position: relative;
+  width: 110px; height: 110px;
+}
+.badge-ring { width: 100%; height: 100%; }
+
+.badge-heart {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(201,168,76,0.7);
+  animation: heartPulse 2s ease-in-out infinite;
+}
+@keyframes heartPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%       { transform: translate(-50%, -50%) scale(1.12); }
+}
+
+/* --- Title block --- */
+.title-block { text-align: center; flex: 1; }
+
+.main-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  font-weight: 400;
+  color: var(--text-title);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 10px rgba(201,168,76,0.4), 0 0 40px rgba(201,168,76,0.15);
+  animation: titleFade 1.2s ease-out both;
+}
+@keyframes titleFade {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.subtitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: var(--text-sub);
+  margin-top: 6px;
+  letter-spacing: 0.06em;
+  opacity: .9;
+  animation: titleFade 1.2s 0.25s ease-out both;
+}
+
+/* --- Hearts top-right --- */
+.hearts-right {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding-top: 6px;
+}
+.heart-icon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  text-shadow: 0 0 8px rgba(201,168,76,0.6);
+  animation: heartPop 3s ease-in-out infinite;
+}
+.heart-icon:nth-child(2) { animation-delay: .4s; }
+.heart-icon:nth-child(3) { animation-delay: .8s; }
+@keyframes heartPop {
+  0%, 100% { transform: scale(1);   opacity: .85; }
+  50%       { transform: scale(1.2); opacity: 1;   }
+}
+
+/* ---------- Header separator line ---------- */
+.header-line {
+  position: relative; z-index: 1;
+  height: 1.5px;
+  margin: 0 40px;
+  background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+  opacity: .55;
+}
+
+/* ---------- Main content ---------- */
+.main-content {
+  position: relative; z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding-bottom: 20px;
+}
+
+/* --- Card fan --- */
+.card-fan-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  animation: fanFloat 4s ease-in-out infinite;
+}
+@keyframes fanFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.card-fan-img {
+  width: clamp(280px, 45vw, 480px);
+  height: auto;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6))
+          drop-shadow(0 0 20px rgba(201,168,76,0.18));
+}
+.card-shadow {
+  position: absolute;
+  bottom: -16px; left: 50%;
+  transform: translateX(-50%);
+  width: 70%; height: 22px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, transparent 75%);
+  filter: blur(8px);
+}
+
+/* ---------- Start button ---------- */
+.btn-start {
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: relative;
+  padding: 14px 60px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #f0a0a8 0%, var(--btn-pink) 50%, #d55065 100%);
+  box-shadow:
+    0 4px 20px rgba(200,60,80,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    0 0 0 2.5px rgba(201,168,76,0.65);
+  transition: transform .2s, box-shadow .2s;
+  animation: btnAppear 1s 0.6s ease-out both;
+}
+@keyframes btnAppear {
+  from { opacity: 0; transform: translateY(20px) scale(.95); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);   }
+}
+.btn-start:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 8px 28px rgba(200,60,80,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    0 0 0 2.5px rgba(201,168,76,0.85);
+}
+.btn-start:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+.btn-start:disabled { opacity: .5; cursor: default; }
+
+.btn-start span {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.btn-start::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 46px;
+  border: 1px solid rgba(255,220,150,0.3);
+  pointer-events: none;
+}
+
+/* ============================================================
+   CARD OVERLAY & ACE ANIMATION
+   ============================================================ */
+
+/* Lớp nền che toàn màn hình (ban đầu ẩn) */
+.card-overlay {
+  position: fixed; inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Không có background ban đầu – trong suốt */
+  pointer-events: none;
+  background: transparent;
+  transition: background 0.5s ease;
+}
+
+/* Khi kích hoạt: nền tối dần */
+.card-overlay.visible {
+  pointer-events: all;
+  background: rgba(60, 0, 10, 0.0); /* vẫn trong suốt, lá bài tự che */
+}
+
+/* ---------- Wrapper lá bài A ---------- */
+.ace-card-wrap {
+  position: relative;
+  /* Ẩn hoàn toàn ban đầu, ở dưới màn hình */
+  opacity: 0;
+  transform: translateY(120vh) rotate(-15deg) scale(0.6);
+  /* Không transition ở đây – dùng animation class */
+}
+
+/* ---------- Bước 1: Rút bài lên (draw) ---------- */
+.ace-card-wrap.draw {
+  animation: cardDraw 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes cardDraw {
+  0% {
+    opacity: 0;
+    transform: translateY(120vh) rotate(-15deg) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-30px) rotate(8deg) scale(1.05);
+  }
+  80% {
+    transform: translateY(10px) rotate(-4deg) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+
+/* Lơ lửng nhẹ sau khi draw xong (áp dụng sau khi animation cardDraw chạy xong) */
+.ace-card-wrap.draw:not(.expand) {
+  animation: cardDraw 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+             cardFloat 2s 0.9s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0px)   rotate(0deg)  scale(1);    }
+  50%       { transform: translateY(-12px) rotate(2deg)  scale(1.02); }
+}
+
+/* ---------- Bước 2: Xoay + Phóng to (expand) ---------- */
+.ace-card-wrap.expand {
+  animation: cardExpand 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes cardExpand {
+  0% {
+    opacity: 1;
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translateY(-20px) rotate(20deg) scale(1.3);
+  }
+  60% {
+    transform: translateY(0px) rotate(-15deg) scale(2.5);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0px) rotate(10deg) scale(6);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0px) rotate(5deg) scale(12);
+  }
+}
+
+/* ---------- Ảnh lá bài A ---------- */
+.ace-card-img {
+  width: clamp(180px, 22vw, 300px);
+  height: auto;
+  filter:
+    drop-shadow(0 10px 30px rgba(0,0,0,0.7))
+    drop-shadow(0 0 20px rgba(201,168,76,0.4));
+  display: block;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .site-header  { padding: 16px 18px 8px; }
+  .top-bar, .header-line { margin: 0 18px; }
+  .badge-wrap   { width: 80px; }
+  .badge        { width: 80px; height: 80px; }
+  .badge-heart  { font-size: 22px; }
+  .hearts-right { gap: 5px; }
+  .heart-icon   { font-size: 1.1rem; }
+  .btn-start    { padding: 12px 42px; }
+  .btn-start span { font-size: 1.1rem; }
+  .ace-card-img { width: 160px; }
+}

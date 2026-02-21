@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mystic Card Night – Special Edition</title>
+  <link rel="stylesheet" href="/css/index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================================================
+       OVERLAY: Lá bài A rút ra + phóng to che màn hình
+  ============================================================ -->
+  <div class="card-overlay" id="cardOverlay">
+    <div class="ace-card-wrap" id="aceCardWrap">
+      <!--
+        Thay src="/images/ace-heart.png" bằng ảnh lá A cơ
+        đã tách nền của bạn (PNG trong suốt)
+      -->
+      <img src="/images/lá A.png" alt="A cơ" class="ace-card-img" id="aceCard" />
+    </div>
+  </div>
+
+  <!-- Top decorative line -->
+  <div class="top-bar"></div>
+
+  <!-- Header area -->
+  <header class="site-header">
+    <!-- Women Day badge (top-left) -->
+    <div class="badge-wrap">
+      <div class="badge">
+        <svg class="badge-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="topArc"    d="M 15,60 A 45,45 0 0,1 105,60"/>
+            <path id="bottomArc" d="M 105,60 A 45,45 0 0,1 15,60"/>
+          </defs>
+          <text font-size="11.5" fill="#c9a84c" font-family="'Lora', serif" letter-spacing="3">
+            <textPath href="#topArc" startOffset="12%">WOMEN DAY</textPath>
+          </text>
+          <text font-size="11.5" fill="#c9a84c" font-family="'Lora', serif" letter-spacing="3">
+            <textPath href="#bottomArc" startOffset="12%">WOMEN DAY</textPath>
+          </text>
+          <text x="57" y="22"  font-size="9" fill="#c9a84c" text-anchor="middle">♥</text>
+          <text x="57" y="103" font-size="9" fill="#c9a84c" text-anchor="middle">♥</text>
+        </svg>
+        <div class="badge-heart">♥</div>
+      </div>
+    </div>
+
+    <!-- Title block -->
+    <div class="title-block">
+      <h1 class="main-title">Mystic Card<br/>Night</h1>
+      <p class="subtitle">Special Edition</p>
+    </div>
+
+    <!-- Hearts top-right -->
+    <div class="hearts-right">
+      <span class="heart-icon">♥</span>
+      <span class="heart-icon">♥</span>
+      <span class="heart-icon">♥</span>
+    </div>
+  </header>
+
+  <!-- Bottom separator line -->
+  <div class="header-line"></div>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <div class="card-fan-wrap">
+      <img src="/images/ảnh bài.png" alt="Bài xòe" class="card-fan-img" />
+      <div class="card-shadow"></div>
+    </div>
+
+    <!-- Start button — dùng button thay a để kiểm soát animation -->
+    <button class="btn-start" id="btnStart">
+      <span>Start</span>
+    </button>
+  </main>
+
+  <!-- ============================================================
+       SCRIPT
+  ============================================================ -->
+  <script>
+    const btnStart = document.getElementById('btnStart');
+    const overlay  = document.getElementById('cardOverlay');
+    const aceWrap  = document.getElementById('aceCardWrap');
+
+    btnStart.addEventListener('click', () => {
+      // Vô hiệu nút để tránh bấm lại
+      btnStart.disabled = true;
+
+      // Bước 1 – Hiện overlay + lá bài trượt lên từ dưới (0.8s)
+      overlay.classList.add('visible');
+      aceWrap.classList.add('draw');
+
+      // Bước 2 – Sau 3.2s lơ lửng: bắt đầu xoay + phóng to
+      setTimeout(() => {
+        aceWrap.classList.add('expand');
+      }, 3200);
+
+      // Bước 3 – Sau khi phóng to xong chuyển trang
+      setTimeout(() => {
+        window.location.href = '/game';
+      }, 4900);
+    });
+  </script>
+</body>
+</html>

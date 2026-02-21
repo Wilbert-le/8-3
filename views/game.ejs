@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mystic Card Night – Game</title>
+  <link rel="stylesheet" href="/css/game.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Top decorative line -->
+  <div class="top-bar"></div>
+
+  <!-- Header -->
+  <header class="game-header">
+    <div class="badge-wrap">
+      <div class="badge">
+        <svg class="badge-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="topArcG"    d="M 15,60 A 45,45 0 0,1 105,60"/>
+            <path id="bottomArcG" d="M 105,60 A 45,45 0 0,1 15,60"/>
+          </defs>
+          <text font-size="11.5" fill="#c9a84c" font-family="'Lora', serif" letter-spacing="3">
+            <textPath href="#topArcG" startOffset="12%">WOMEN DAY</textPath>
+          </text>
+          <text font-size="11.5" fill="#c9a84c" font-family="'Lora', serif" letter-spacing="3">
+            <textPath href="#bottomArcG" startOffset="12%">WOMEN DAY</textPath>
+          </text>
+          <text x="57" y="22"  font-size="9" fill="#c9a84c" text-anchor="middle">♥</text>
+          <text x="57" y="103" font-size="9" fill="#c9a84c" text-anchor="middle">♥</text>
+        </svg>
+        <div class="badge-heart">♥</div>
+      </div>
+    </div>
+
+    <div class="hearts-right">
+      <span class="heart-icon">♥</span>
+      <span class="heart-icon">♥</span>
+      <span class="heart-icon">♥</span>
+    </div>
+  </header>
+
+  <!-- Header line -->
+  <div class="header-line"></div>
+
+  <!-- ============================================================
+       GAME TABLE
+  ============================================================ -->
+  <main class="game-table">
+
+    <!-- ── Góc trên-trái: lá bài player 1 (úp nghiêng) ── -->
+    <div class="card-slot top-left">
+      <div class="card card-tilted-left" id="cardTopLeft">
+        <img src="/images/lá 2.png" alt="Card" class="card-img" />
+      </div>
+    </div>
+    
+<!-- ── Dòng chữ gợi ý – nằm phía trên bên phải giữa bàn ── -->
+    <p class="hint-text" id="hintText">Lật lá bài lên</p>
+
+    <!-- ── Góc trên-phải: lá Queen (ảnh nhân vật) ── -->
+    <div class="card-slot top-right">
+      <div class="card card-tilted-right" id="cardTopRight">
+        <img src="/images/ảnh1.png" alt="Queen" class="card-img" />
+      </div>
+    </div>
+
+    <!-- ── Giữa bàn: 3 lá bài ── -->
+    <div class="center-cards">
+
+      <!-- Lá trái: 8 cơ (hiển thị) -->
+      <div class="card card-center" id="cardLeft">
+        <img src="/images/lá 8.png" alt="8 cơ" class="card-img" />
+      </div>
+
+      <!-- Lá giữa: úp – là BUTTON bấm được -->
+      <button class="card card-center card-face-down" id="cardMiddle" aria-label="Lật bài">
+        <img src="/images/lá úp.png" alt="Bài úp" class="card-img" />
+      </button>
+
+      <!-- Lá phải: 3 cơ (hiển thị) -->
+      <div class="card card-center" id="cardRight">
+        <img src="/images/lá 3.png" alt="3 cơ" class="card-img" />
+      </div>
+
+    </div>
+
+    <!-- ── Góc dưới-trái: lá Queen (ảnh nhân vật) ── -->
+    <div class="card-slot bottom-left">
+      <div class="card card-tilted-left card-big" id="cardBottomLeft">
+        <img src="/images/ảnh2.png" alt="Queen 2" class="card-img" />
+      </div>
+    </div>
+
+    <!-- ── Góc dưới-phải: lá 9 chuồn ── -->
+    <div class="card-slot bottom-right">
+      <div class="card card-tilted-right card-big" id="cardBottomRight">
+        <img src="/images/lá 9.png" alt="9 chuồn" class="card-img" />
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/js/game.js"></script>
+</body>
+</html>

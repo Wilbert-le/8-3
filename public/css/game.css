@@ -299,7 +299,7 @@ body {
 .card-slot:hover .card-tilted-left  { transform: rotate(-20deg) scale(1.07); }
 .card-slot:hover .card-tilted-right { transform: rotate(18deg)  scale(1.07); }
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsive tablet ---------- */
 @media (max-width: 768px) {
   .game-header { padding: 10px 16px 6px; }
   .top-bar, .header-line { margin: 0 16px; }
@@ -307,14 +307,43 @@ body {
   .badge { width: 70px; height: 70px; }
   .badge-heart { font-size: 18px; }
 
-  .top-left  { top: 5%;  left: 2%; }
-  .top-right { top: 3%;  right: 2%; }
-  .bottom-left  { bottom: 3%; left: 0%; }
-  .bottom-right { bottom: 2%; right: 0%; }
+  .top-left  { top: 18%;  left: 3%; }
+  .top-right { top: 15%;  right: 3%; }
+  .bottom-left  { bottom: 15%; left: 3%; }
+  .bottom-right { bottom: 12%; right: 3%; }
 
   .card-tilted-left,
-  .card-tilted-right { width: 80px; height: 112px; }
-  .card-big { width: 95px; height: 133px; }
-  .card-center { width: 90px; height: 126px; }
+  .card-tilted-right { width: 110px; height: 154px; }
+  .card-big { width: 120px; height: 168px; }
+  .card-center { width: 100px; height: 140px; }
+  .center-cards { gap: 10px; }
+}
+
+/* ---------- Responsive mobile ---------- */
+@media (max-width: 480px) {
+  .game-header { padding: 8px 12px 4px; }
+  .top-bar, .header-line { margin: 0 12px; }
+  .badge-wrap { width: 58px; }
+  .badge { width: 58px; height: 58px; }
+  .badge-heart { font-size: 15px; }
+  .hearts-right { gap: 5px; }
+  .heart-icon { font-size: 1rem; }
+
+  /* Đẩy các lá góc vào gần trung tâm hơn */
+  .top-left  { top: 20%;  left: 2%; }
+  .top-right { top: 17%;  right: 2%; }
+  .bottom-left  { bottom: 16%; left: 2%; }
+  .bottom-right { bottom: 13%; right: 2%; }
+
+  /* Phóng to lá góc cho dễ nhìn */
+  .card-tilted-left,
+  .card-tilted-right { width: 100px; height: 140px; }
+  .card-big { width: 110px; height: 154px; }
+
+  /* 3 lá trung tâm */
+  .card-center { width: 85px; height: 119px; }
   .center-cards { gap: 8px; }
+
+  /* Hint text */
+  .hint-text { font-size: 1rem; top: 30%; }
 }

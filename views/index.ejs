@@ -9,15 +9,17 @@
 </head>
 <body>
 
+  <!-- Overlay trong suốt để unlock audio ngay khi user chạm/click lần đầu -->
+  <div id="audioUnlock" style="
+    position:fixed; inset:0; z-index:99999;
+    cursor:pointer; background:transparent;
+  "></div>
+
   <!-- ============================================================
        OVERLAY: Lá bài A rút ra + phóng to che màn hình
   ============================================================ -->
   <div class="card-overlay" id="cardOverlay">
     <div class="ace-card-wrap" id="aceCardWrap">
-      <!--
-        Thay src="/images/ace-heart.png" bằng ảnh lá A cơ
-        đã tách nền của bạn (PNG trong suốt)
-      -->
       <img src="/images/lá A.png" alt="A cơ" class="ace-card-img" id="aceCard" />
     </div>
   </div>
@@ -72,7 +74,7 @@
       <div class="card-shadow"></div>
     </div>
 
-    <!-- Start button — dùng button thay a để kiểm soát animation -->
+    <!-- Start button -->
     <button class="btn-start" id="btnStart">
       <span>Start</span>
     </button>
@@ -86,20 +88,48 @@
     const overlay  = document.getElementById('cardOverlay');
     const aceWrap  = document.getElementById('aceCardWrap');
 
+    // ── Nhạc nền (MP3) ──────────────────────────────────────────
+    const bgMusic = new Audio('/sounds/Em Là Lý Do.mp3');
+    bgMusic.loop    = true;
+    bgMusic.volume  = 0.6;
+    bgMusic.preload = 'auto';
+
+    // ── Âm thanh rút bài ────────────────────────────────────────
+    const cardSound = new Audio('/sounds/card flip.ogg');
+    cardSound.preload = 'auto';
+
+    // ── Overlay trong suốt — bắt click/touch đầu tiên để phát nhạc ──
+    const audioUnlock = document.getElementById('audioUnlock');
+
+    const doUnlock = () => {
+      bgMusic.play().catch(() => {});
+      audioUnlock.remove();
+    };
+
+    audioUnlock.addEventListener('click',      doUnlock, { once: true });
+    audioUnlock.addEventListener('touchstart', doUnlock, { once: true });
+
+    // ── Nút Start ───────────────────────────────────────────────
     btnStart.addEventListener('click', () => {
-      // Vô hiệu nút để tránh bấm lại
       btnStart.disabled = true;
 
-      // Bước 1 – Hiện overlay + lá bài trượt lên từ dưới (0.8s)
+      // Đảm bảo nhạc nền đang chạy
+      if (bgMusic.paused) bgMusic.play().catch(() => {});
+
+      // Phát âm thanh rút bài
+      cardSound.currentTime = 0;
+      cardSound.play().catch(() => {});
+
+      // Bước 1 – Hiện overlay + lá bài trượt lên từ dưới
       overlay.classList.add('visible');
       aceWrap.classList.add('draw');
 
-      // Bước 2 – Sau 3.2s lơ lửng: bắt đầu xoay + phóng to
+      // Bước 2 – Xoay + phóng to
       setTimeout(() => {
         aceWrap.classList.add('expand');
       }, 3200);
 
-      // Bước 3 – Sau khi phóng to xong chuyển trang
+      // Bước 3 – Chuyển trang game; nhạc tắt tự nhiên khi unload
       setTimeout(() => {
         window.location.href = '/game';
       }, 4900);

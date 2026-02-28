@@ -9,12 +9,6 @@
 </head>
 <body>
 
-  <!-- Overlay trong suốt để unlock audio ngay khi user chạm/click lần đầu -->
-  <div id="audioUnlock" style="
-    position:fixed; inset:0; z-index:99999;
-    cursor:pointer; background:transparent;
-  "></div>
-
   <!-- ============================================================
        OVERLAY: Lá bài A rút ra + phóng to che màn hình
   ============================================================ -->
@@ -81,14 +75,54 @@
   </main>
 
   <!-- ============================================================
+       GRAMOPHONE – góc phải phía dưới
+  ============================================================ -->
+  <div class="gramophone-wrap" id="gramophoneWrap" title="Click để bật/tắt nhạc">
+
+    <!--
+      NỐT NHẠC: vị trí được set bằng `top` + `left` trong CSS (.music-notes).
+      Sau khi gắn ảnh thật, mở DevTools (F12) và chỉnh:
+        top  = khoảng cách từ đỉnh .gramophone-wrap đến miệng loa (px hoặc %)
+        left = khoảng cách từ trái .gramophone-wrap đến miệng loa (px hoặc %)
+      
+      --x  của mỗi .note: số dương = nốt bay sang phải, âm = bay sang trái
+      --delay: thời gian chờ trước khi note bắt đầu bay (giây)
+    -->
+    <div class="music-notes" id="musicNotes">
+      <span class="note" style="--x:-22px; --delay:0s;   --size:1.1rem">♪</span>
+      <span class="note" style="--x: 8px;  --delay:0.6s; --size:0.9rem">♫</span>
+      <span class="note" style="--x:-36px; --delay:1.1s; --size:1.3rem">♩</span>
+      <span class="note" style="--x: 18px; --delay:1.7s; --size:0.85rem">♬</span>
+      <span class="note" style="--x:-10px; --delay:2.3s; --size:1rem">♪</span>
+      <span class="note" style="--x: 28px; --delay:2.8s; --size:0.95rem">♫</span>
+    </div>
+
+    <!--
+      ★ THAY src BẰNG ĐƯỜNG DẪN ẢNH MÁY CHƠI NHẠC CỦA BẠN ★
+      Ví dụ: src="/images/gramophone.png"
+    -->
+    <img
+      src="/images/loa.png"
+      alt="Máy chơi nhạc cổ điển"
+      class="gramophone-img"
+      draggable="false"
+    />
+
+    <!-- Label nhỏ bên dưới -->
+    <div class="gramophone-label">♪ Music</div>
+  </div>
+
+  <!-- ============================================================
        SCRIPT
   ============================================================ -->
   <script>
-    const btnStart = document.getElementById('btnStart');
-    const overlay  = document.getElementById('cardOverlay');
-    const aceWrap  = document.getElementById('aceCardWrap');
+    const btnStart   = document.getElementById('btnStart');
+    const overlay    = document.getElementById('cardOverlay');
+    const aceWrap    = document.getElementById('aceCardWrap');
+    const gramophone = document.getElementById('gramophoneWrap');
+    const musicNotes = document.getElementById('musicNotes');
 
-    // ── Nhạc nền (MP3) ──────────────────────────────────────────
+    // ── Nhạc nền ────────────────────────────────────────────────
     const bgMusic = new Audio('/sounds/Em Là Lý Do.mp3');
     bgMusic.loop    = true;
     bgMusic.volume  = 0.6;
@@ -98,42 +132,44 @@
     const cardSound = new Audio('/sounds/card flip.ogg');
     cardSound.preload = 'auto';
 
-    // ── Overlay trong suốt — bắt click/touch đầu tiên để phát nhạc ──
-    const audioUnlock = document.getElementById('audioUnlock');
+    // ── Bật/tắt hiệu ứng ────────────────────────────────────────
+    function setMusicState(playing) {
+      if (playing) {
+        gramophone.classList.add('playing');
+        musicNotes.classList.add('active');
+      } else {
+        gramophone.classList.remove('playing');
+        musicNotes.classList.remove('active');
+      }
+    }
 
-    const doUnlock = () => {
-      bgMusic.play().catch(() => {});
-      audioUnlock.remove();
-    };
-
-    audioUnlock.addEventListener('click',      doUnlock, { once: true });
-    audioUnlock.addEventListener('touchstart', doUnlock, { once: true });
+    // ── Click gramophone = toggle bật/tắt nhạc ──────────────────
+    gramophone.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => setMusicState(true)).catch(() => {});
+      } else {
+        bgMusic.pause();
+        setMusicState(false);
+      }
+    });
 
     // ── Nút Start ───────────────────────────────────────────────
     btnStart.addEventListener('click', () => {
       btnStart.disabled = true;
 
-      // Đảm bảo nhạc nền đang chạy
-      if (bgMusic.paused) bgMusic.play().catch(() => {});
-
-      // Phát âm thanh rút bài
       cardSound.currentTime = 0;
       cardSound.play().catch(() => {});
 
-      // Bước 1 – Hiện overlay + lá bài trượt lên từ dưới
       overlay.classList.add('visible');
       aceWrap.classList.add('draw');
 
-      // Bước 2 – Xoay + phóng to
-      setTimeout(() => {
-        aceWrap.classList.add('expand');
-      }, 3200);
-
-      // Bước 3 – Chuyển trang game; nhạc tắt tự nhiên khi unload
-      setTimeout(() => {
-        window.location.href = '/game';
-      }, 4900);
+      setTimeout(() => { aceWrap.classList.add('expand'); }, 3200);
+      setTimeout(() => { window.location.href = '/game'; }, 4900);
     });
+
+    // ── Đồng bộ state nếu browser tự pause ──────────────────────
+    bgMusic.addEventListener('play',  () => setMusicState(true));
+    bgMusic.addEventListener('pause', () => setMusicState(false));
   </script>
 </body>
 </html>
